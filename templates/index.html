@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Blur and Anonymize Faces</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #f1f1f1;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+
+        h1 {
+            margin-top: 30px;
+            font-size: 2.5em;
+        }
+
+        .video-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .video-container img {
+            border: 4px solid #00ffae;
+            border-radius: 10px;
+            max-width: 100%;
+            height: auto;
+            box-shadow: 0 0 20px rgba(0, 255, 174, 0.4);
+        }
+
+        .controls {
+            margin-top: 20px;
+        }
+
+        .controls button {
+            background-color: #00ffae;
+            border: none;
+            padding: 10px 20px;
+            margin: 10px;
+            font-size: 1em;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .controls button:hover {
+            background-color: #00d494;
+        }
+
+        .footer {
+            margin-top: 40px;
+            font-size: 0.9em;
+            color: #777;
+        }
+    </style>
+</head>
+<body>
+    <h1>Blur and Anonymize Faces</h1>
+
+    <div class="video-container">
+        <img src="{{ url_for('video_feed') }}" alt="Video Stream">
+    </div>
+
+    <div class="controls">
+        <button onclick="setMode('blur')">Blur</button>
+        <button onclick="setMode('pixelate')">Pixelate</button>
+        <button onclick="setMode('both')">Both</button>
+        <button onclick="setMode('none')">None</button>
+    </div>
+
+    <div class="footer">
+        <p>Click buttons above to change anonymization mode.</p>
+    </div>
+
+    <script>
+        function setMode(mode) {
+            fetch(`/set_mode/${mode}`)
+                .then(response => response.text())
+                .then(data => console.log(data))
+                .catch(err => console.error(err));
+        }
+    </script>
+</body>
+</html>
