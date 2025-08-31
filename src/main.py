@@ -2,7 +2,7 @@ import cv2
 
 
 class Faces:
-    def __init__(self, mode='node'):
+    def __init__(self, mode='none'):
         self.mode = mode
 
     def blur_and_anon_faces(self):
